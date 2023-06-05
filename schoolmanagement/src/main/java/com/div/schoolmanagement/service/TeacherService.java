@@ -1,0 +1,39 @@
+package com.div.schoolmanagement.service;
+
+import com.div.schoolmanagement.entity.Student;
+import com.div.schoolmanagement.entity.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class TeacherService {
+    private TeacherRepository teacherRepository;
+
+    @Autowired
+    public TeacherService(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
+
+    public Optional<Teacher> getTeacherWithId(int id) {
+        return teacherRepository.getTeacherWithId(id);
+    }
+
+    public List<Teacher> getAllTeachers() {
+        return teacherRepository.getAllTeachers();
+    }
+
+    public void createTeacher(Student student) {
+        teacherRepository.createTeacher(student);
+    }
+
+    public void updateTeacher(int id, Teacher teacher) {
+        teacherRepository.updateTeacher(id, teacher);
+    }
+
+    public void deleteTeacher(int id) {
+        teacherRepository.deleteTeacher(id);
+    }
+}
