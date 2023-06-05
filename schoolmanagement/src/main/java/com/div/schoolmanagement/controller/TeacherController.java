@@ -32,8 +32,8 @@ public class TeacherController {
     }
 
     @PostMapping("/create/")
-    public void createTeacher(@RequestBody Student student) {
-        teacherService.createTeacher(student);
+    public void createTeacher(@RequestBody Teacher teacher) {
+        teacherService.createTeacher(teacher);
     }
 
     @PutMapping("/update/{id}")

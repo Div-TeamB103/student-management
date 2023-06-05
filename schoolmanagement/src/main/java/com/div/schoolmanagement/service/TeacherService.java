@@ -2,6 +2,7 @@ package com.div.schoolmanagement.service;
 
 import com.div.schoolmanagement.entity.Student;
 import com.div.schoolmanagement.entity.Teacher;
+import com.div.schoolmanagement.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class TeacherService {
         return teacherRepository.getAllTeachers();
     }
 
-    public void createTeacher(Student student) {
-        teacherRepository.createTeacher(student);
+    public void createTeacher(Teacher teacher) {
+        teacherRepository.createTeacher(teacher);
     }
 
     public void updateTeacher(int id, Teacher teacher) {

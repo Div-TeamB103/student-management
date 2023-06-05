@@ -1,4 +1,4 @@
-package com.div.schoolmanagement.service;
+package com.div.schoolmanagement.repository;
 
 import com.div.schoolmanagement.entity.Student;
 import com.div.schoolmanagement.entity.Teacher;
@@ -19,15 +19,19 @@ public class TeacherRepository {
         return teacherList;
     }
 
-    public void createTeacher(Student student) {
-
+    public void createTeacher(Teacher teacher) {
+        long count = teacherList.stream().filter(teacherById -> teacherById.getId() == teacher.getId()).count();
+        if (count == 0) {
+            teacherList.add(teacher);
+        }
     }
 
     public void updateTeacher(int id, Teacher teacher) {
-
+        teacherList.stream().filter(teacherFromList -> teacherFromList.getId() == teacher.getId())
+                .forEach(teacherFromList -> teacherList.set(teacherList.indexOf(teacherFromList), teacher));
     }
 
     public void deleteTeacher(int id) {
-
+        teacherList.removeIf(teacherById -> teacherById.getId() == id);
     }
 }
