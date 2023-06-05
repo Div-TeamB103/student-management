@@ -1,28 +1,32 @@
 package com.div.schoolmanagement.entity;
 
-import com.div.schoolmanagement.entity.Person;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Teacher {
-    private String name ;
-    private String surname ;
-
-    private int age ;
-    private int id ;
-    private int salary;
+    private Integer id;
+    private String name;
+    private String surname;
+    private Integer age;
+    private Integer salary;
 
     private List<Group> groups;
-
     private List<Subject> subjects;
 
 
-
+    public Teacher(Integer id, String name, String surname, Integer age, Integer salary) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.salary = salary;
+    }
 }
