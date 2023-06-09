@@ -2,13 +2,14 @@ package com.div.schoolmanagement.repository;
 
 import com.div.schoolmanagement.entity.Student;
 import com.div.schoolmanagement.info.Statics;
+import com.div.schoolmanagement.repository.inter.StudentRepositoryInter;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class StudentRepository {
+public class StudentRepository implements StudentRepositoryInter {
 
     private final List<Student> studentList = Statics.studentList;
 
@@ -27,7 +28,7 @@ public class StudentRepository {
         }
     }
 
-    public void updateStudent(Student student) {
+    public void updateStudent(int id, Student student) {
         studentList.stream().filter(studentFromList -> studentFromList.getId() == student.getId())
                 .forEach(studentFromList -> studentList.set(studentList.indexOf(studentFromList), student));
     }

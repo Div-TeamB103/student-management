@@ -1,8 +1,8 @@
 package com.div.schoolmanagement.service;
 
-import com.div.schoolmanagement.entity.Student;
 import com.div.schoolmanagement.entity.Teacher;
 import com.div.schoolmanagement.repository.TeacherRepository;
+import com.div.schoolmanagement.service.inter.TeacherServiceInter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TeacherService {
+public class TeacherService implements TeacherServiceInter {
     private TeacherRepository teacherRepository;
 
     @Autowired
@@ -37,4 +37,5 @@ public class TeacherService {
     public void deleteTeacher(int id) {
         teacherRepository.deleteTeacher(id);
     }
+
 }
