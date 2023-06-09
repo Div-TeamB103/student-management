@@ -21,27 +21,27 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
-    @GetMapping("/teacher/{id}")
+    @GetMapping("/{id}")
     public Optional<Teacher> getTeacherWithId(ModelMap modelMap, @PathVariable int id) {
         return teacherService.getTeacherWithId(id);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Teacher> getAllTeachers() {
         return teacherService.getAllTeachers();
     }
 
-    @PostMapping("/create/")
+    @PostMapping
     public void createTeacher(@RequestBody Teacher teacher) {
         teacherService.createTeacher(teacher);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public void updateTeacher(@PathVariable int id, @RequestBody Teacher teacher) {
         teacherService.updateTeacher(id, teacher);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable int id) {
         teacherService.deleteTeacher(id);
     }

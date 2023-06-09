@@ -2,6 +2,7 @@ package com.div.schoolmanagement.service;
 
 import com.div.schoolmanagement.entity.Student;
 import com.div.schoolmanagement.repository.StudentRepository;
+import com.div.schoolmanagement.service.inter.StudentServiceInter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class StudentService implements StudentServiceInter {
 
     private StudentRepository studentRepository;
 

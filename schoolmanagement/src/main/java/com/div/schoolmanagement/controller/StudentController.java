@@ -20,27 +20,27 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/{id}")
     public Optional<Student> getStudentWithId(ModelMap modelMap, @PathVariable(name = "id") int id) {
         return studentService.getStudentWithId(id);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
-    @PostMapping("/create/")
+    @PostMapping
     public void createStudent(@RequestBody Student student) {
         studentService.createStudent(student);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public void updateStudent(@PathVariable int id, @RequestBody Student student) {
         studentService.updateStudent(id, student);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable int id) {
         studentService.deleteStudent(id);
     }
