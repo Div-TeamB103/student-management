@@ -1,11 +1,10 @@
 package com.div.schoolmanagement.controller;
 
 import com.div.schoolmanagement.entity.Student;
+import com.div.schoolmanagement.info.Statics;
+import com.div.schoolmanagement.service.inter.StudentServiceInter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,20 +12,33 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
-     @GetMapping("/student/{id}")
-    public Student  getStudentWithId(@PathVariable(name = "id") int id ){
+    private StudentServiceInter studentServiceInter;
 
+    @PostMapping
+    public void create(@RequestBody Student student) {
 
-     return
- }
+    }
 
-    @GetMapping()
-    public List<Student> getAllStudents(){
+    @GetMapping
+    public List<Student> readAll() {
+        return studentServiceInter.readAll();
+    }
 
-         return
+    @PutMapping
+    public void updateById(@RequestBody Student student, @PathVariable int id) {
+        studentServiceInter.updateById(student, id);
     }
 
 
+    @DeleteMapping("{id}")
+    public void deleteStudent(@PathVariable int id) {
+        studentServiceInter.deleteStudent(id);
+    }
+
+    @GetMapping("{id}")
+    public Student searchById(@PathVariable int id) {
+       return studentServiceInter.searchById(id);
+    }
 
 
 

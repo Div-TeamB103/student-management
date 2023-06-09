@@ -1,10 +1,7 @@
 package com.div.schoolmanagement.entity;
 
-import com.div.schoolmanagement.entity.Person;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Teacher {
+    public static int count = 1;
     private String name ;
     private String surname ;
 
@@ -23,6 +21,14 @@ public class Teacher {
 
     private List<Subject> subjects;
 
-
-
+    public Teacher(String name, String surname, int age, int id, int salary, List<Group> groups, List<Subject> subjects) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.id = count;
+        this.salary = salary;
+        this.groups = groups;
+        this.subjects = subjects;
+        count++;
+    }
 }
