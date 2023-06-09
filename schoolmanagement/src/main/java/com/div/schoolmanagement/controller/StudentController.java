@@ -1,11 +1,9 @@
 package com.div.schoolmanagement.controller;
 
 import com.div.schoolmanagement.entity.Student;
+import com.div.schoolmanagement.info.Statics;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,22 +11,41 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
+
+    @PostMapping()
+    public  String create (@RequestBody Student student ){
+        Statics.studentList.add(student);
+        return "created";
+    }
      @GetMapping("/student/{id}")
     public Student  getStudentWithId(@PathVariable(name = "id") int id ){
-
-
-     return
+         return Statics.studentList.stream()
+                 .filter(student -> student.getId()==id)
+                 .findFirst()
+                 .orElse(null);
  }
 
     @GetMapping()
     public List<Student> getAllStudents(){
 
-         return
+         return Statics.studentList;
+
     }
 
+  @DeleteMapping("/{id}")
+    public void delete(@PathVariable(name = "id") int id ){
+        Statics.studentList.removeIf(s->s.getId()==id);}
 
 
+    @PutMapping()
+    public  void update(@RequestBody Student student ){
+        Student student3 =Statics.studentList.stream()
+                        .filter(student1 -> student1.getId()==student.getId())
+                                .findFirst().get();
+        Statics.studentList.remove(student3);
+        Statics.studentList.add(student);
 
+    }
 
 
 }

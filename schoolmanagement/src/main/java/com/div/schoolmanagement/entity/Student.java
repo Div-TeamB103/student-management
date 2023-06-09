@@ -1,14 +1,17 @@
 package com.div.schoolmanagement.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-@Component
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student   {
 
     private String name ;
@@ -18,13 +21,7 @@ public class Student   {
     private int id ;
     private String className;
 
-    public Student(String name, String surname, int age, int id, String className) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.id = id;
-        this.className = className;
-    }
+
 
     public String getName() {
         return name;
