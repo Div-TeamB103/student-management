@@ -24,7 +24,7 @@ public class TeacherService implements TeacherServiceInter {
                 .findFirst()
                 .orElse(null);
     }
-    @Component
+ 
     @Override
     public List<Teacher> getAll() {
         return Statics.teacherList;
