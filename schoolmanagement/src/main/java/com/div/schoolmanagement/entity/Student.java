@@ -18,6 +18,9 @@ public class Student   {
     private int id ;
     private String className;
 
+    public Student() {
+    }
+
     public Student(String name, String surname, int age, int id, String className) {
         this.name = name;
         this.surname = surname;

@@ -1,4 +1,4 @@
-package com.div.schoolmanagement.controller;
-
-public class SubjectController {
-}
+//package com.div.schoolmanagement.controller;
+//
+//public class SubjectController {
+//}

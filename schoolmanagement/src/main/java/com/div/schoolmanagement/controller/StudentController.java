@@ -7,24 +7,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
-     @GetMapping("/student/{id}")
-    public Student  getStudentWithId(@PathVariable(name = "id") int id ){
+//     @GetMapping("/student/{id}")
+//    public Student  getStudentWithId(@PathVariable(name = "id") int id ){
+//
+//
+//     return
+// }
 
-
-     return
- }
-
-    @GetMapping()
-    public List<Student> getAllStudents(){
-
-         return
-    }
+//    @GetMapping()
+//    public List<Student> getAllStudents(){
+//
+//         return
+//    }
 
 
 
