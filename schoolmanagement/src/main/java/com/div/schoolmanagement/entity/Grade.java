@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 public class Grade {
     private int id ;
-    private int point ;
+    private int point;
 
 
 
