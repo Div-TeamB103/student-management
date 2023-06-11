@@ -1,55 +1,55 @@
 package com.div.schoolmanagement.service;
 
 import com.div.schoolmanagement.entity.Teacher;
-import com.div.schoolmanagement.info.Statics;
-import com.div.schoolmanagement.service.inter.TeacherServiceInter;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TeacherService implements TeacherServiceInter {
+public class TeacherService {
+    private List<Teacher> teacherServices = new ArrayList<>();
+    private Long sequence = 0L;
 
-    @Override
-    public String create(Teacher teacher) {
-        Statics.teacherList.add(teacher);
-        return  "Created";
+    public List<Teacher> getAllTeacher() {
+        return teacherServices;
     }
 
-    @Override
-    public Teacher getById(Teacher teacher, int id) {
-        return Statics.teacherList.stream()
-                .filter(teacher1 -> teacher1.getId()==id)
+    public List<Teacher> createTeacherService(Teacher teacher) {
+        teacher.setID(Math.toIntExact(++sequence));
+        teacherServices.add(teacher);
+        return teacherServices;
+    }
+
+    public Teacher updateTeacherService(Teacher teacherService, long id) {
+        Teacher oldTeacher = teacherServices.stream()
+                .filter(teacher -> teacher.equals(teacherService) || teacher.getID() == id)
                 .findFirst()
                 .orElse(null);
-    }
- 
-    @Override
-    public List<Teacher> getAll() {
-        return Statics.teacherList;
-    }
-
-    @Override
-    public void deleted(Teacher teacher,int id) {
-        Statics.teacherList.removeIf(teacher1 -> teacher1.getId()==id);
-    }
-
-    @Override
-    public Teacher update(Teacher teacher, int id) {
-        Teacher oldteacher=Statics.teacherList.stream()
-                .filter(teacher1 -> teacher1.getId()==id)
-                .findFirst().orElse(null);
-        if (oldteacher!=null){
-            oldteacher.setName(teacher.getName());
-            oldteacher.setSurname(teacher.getSurname());
-            oldteacher.setAge(teacher.getAge());
-            oldteacher.setSalary(teacher.getSalary());
-            oldteacher.setGroups(teacher.getGroups());
-            oldteacher.setSubjects(teacher.getSubjects());
+        if (oldTeacher != null) {
+            oldTeacher.setName(teacherService.getName());
+            oldTeacher.setSurname(teacherService.getSurname());
+            oldTeacher.setSalary(teacherService.getSalary());
+            oldTeacher.setID(teacherService.getID());
+            oldTeacher.setAge(teacherService.getAge());
+            oldTeacher.setGroups(teacherService.getGroups());
+            oldTeacher.setSubjects(teacherService.getSubjects());
         }
-        Statics.teacherList.set(id, oldteacher);
-        return oldteacher;
+        return oldTeacher;
     }
 
+    public Teacher getSearchTeacher(long id , Teacher name) {
+        Teacher searchTeacher = teacherServices.stream()
+                .filter(teacher -> teacher.getID() == id || teacher.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+        if (searchTeacher == null) {
+            System.out.println("This teacher does not exist.");
+        }
+        return searchTeacher;
+    }
+
+    public void deleteTeacher(long id, Teacher teacher) {
+        teacherServices.removeIf(teacher1 -> teacher1.getID() == id || teacher1.equals(teacher));
+    }
 }
