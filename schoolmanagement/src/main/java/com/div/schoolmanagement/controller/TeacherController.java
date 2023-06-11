@@ -1,46 +1,44 @@
 package com.div.schoolmanagement.controller;
 
-import com.div.schoolmanagement.entity.Student;
 import com.div.schoolmanagement.entity.Teacher;
-import com.div.schoolmanagement.info.Statics;
-import com.div.schoolmanagement.service.inter.TeacherServiceInter;
-
+import com.div.schoolmanagement.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/teachers")
+@RequestMapping("/teacher")
 public class TeacherController {
+    private TeacherService teacherService;
 
     @Autowired
-    private TeacherServiceInter teacherService;
-
-    @PostMapping()
-    public String create(@RequestBody Teacher teacher) {
-       return teacherService.create(teacher);
-    }
-
-    @GetMapping(path = "/{id}")
-    public Teacher getTeacher(@PathVariable(value = "id") int id, Teacher teacher) {
-        return teacherService.getById(teacher, id);
+    public TeacherController(TeacherService teacherService) {
+        this.teacherService = teacherService;
     }
 
     @GetMapping()
-    public List<Teacher> getAll() {
-        return teacherService.getAll();
+    public List<Teacher> getAllTeacher() {
+        return teacherService.getAllTeacher();
     }
 
-    @DeleteMapping(path = "/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleted(@PathVariable(value = "id") Teacher teacher,int id) {
-        teacherService.deleted(teacher,id);
+    @GetMapping("/{id}/{name}")
+    public Teacher searchTeacherWithId(@PathVariable long id, @RequestBody Teacher name) {
+        return teacherService.getSearchTeacher(id, name);
     }
 
-    @PutMapping(path = "/{id}")
-    public Teacher update(@PathVariable(value = "id") int id, Teacher teacher) {
-        return update(id,   teacher);
+    @PostMapping("/create")
+    public List<Teacher> createTeacher(@RequestBody Teacher teacher) {
+        return teacherService.createTeacherService(teacher);
     }
 
+    @PutMapping("/update/{id}")
+    public Teacher updateTeacher(@PathVariable long id, @RequestBody Teacher teacher) {
+        return teacherService.updateTeacherService(teacher, id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteTeacher(@RequestBody Teacher teacher, @PathVariable long id) {
+        teacherService.deleteTeacher(id, teacher);
+    }
 }
