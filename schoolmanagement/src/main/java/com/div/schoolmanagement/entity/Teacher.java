@@ -9,11 +9,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Teacher {
+    private int id ;
     private String name ;
     private String surname ;
-
     private int age ;
-    private int id ;
     private int salary;
 
     private List<Student> students;
