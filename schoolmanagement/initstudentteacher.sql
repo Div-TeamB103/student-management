@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS students_teachers
     teacher_id INTEGER,
     PRIMARY KEY (student_id, teacher_id),
     FOREIGN KEY (student_id) REFERENCES students (id) ON DELETE CASCADE,
-    FOREIGN KEY (teacher_id) REFERENCES teachers (id) ON DELETE CASCADE
+    FOREIGN KEY (teacher_id) REFERENCES teachers (id) ON DELETE CASCADE,
+    INDEX (student_id, teacher_id)
 ) ENGINE = INNODB
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
