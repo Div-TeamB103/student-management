@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-
+@
 public class Grade {
     private int id ;
     private int point ;
