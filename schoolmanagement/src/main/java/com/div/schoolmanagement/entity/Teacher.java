@@ -1,10 +1,7 @@
 package com.div.schoolmanagement.entity;
 
-import com.div.schoolmanagement.entity.Person;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -19,8 +16,8 @@ public class Teacher {
     private int id ;
     private int salary;
 
+    private List<Student> students;
     private List<Group> groups;
-
     private List<Subject> subjects;
 
 
