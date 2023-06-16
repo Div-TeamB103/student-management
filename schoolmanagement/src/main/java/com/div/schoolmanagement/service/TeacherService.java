@@ -7,19 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TeacherService implements TeacherServiceInter {
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
 
     @Autowired
     public TeacherService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
 
-    public Optional<Teacher> getTeacherWithId(int id) {
-        return teacherRepository.getTeacherWithId(id);
+    public Teacher getTeacherById(Integer teacherId) {
+        return teacherRepository.getTeacherWithId(teacherId).orElse(null);
     }
 
     public List<Teacher> getAllTeachers() {
@@ -30,12 +29,12 @@ public class TeacherService implements TeacherServiceInter {
         teacherRepository.createTeacher(teacher);
     }
 
-    public void updateTeacher(int id, Teacher teacher) {
-        teacherRepository.updateTeacher(id, teacher);
+    public void updateTeacher(Integer teacherId, Teacher newTeacher) {
+        teacherRepository.updateTeacher(teacherId, newTeacher);
     }
 
-    public void deleteTeacher(int id) {
-        teacherRepository.deleteTeacher(id);
+    public void deleteTeacher(Integer teacherId) {
+        teacherRepository.deleteTeacher(teacherId);
     }
 
 }
