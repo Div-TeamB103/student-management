@@ -29,8 +29,41 @@ public class TeacherService implements TeacherServiceInter {
         teacherRepository.createTeacher(teacher);
     }
 
+
     public void updateTeacher(Integer teacherId, Teacher newTeacher) {
-        teacherRepository.updateTeacher(teacherId, newTeacher);
+        Teacher existTeacherFromData = getTeacherById(teacherId);
+        if (existTeacherFromData != null) {
+            if (newTeacher.getName() == null)
+                newTeacher.setName(existTeacherFromData.getName());
+            if (newTeacher.getSurname() == null)
+                newTeacher.setSurname(existTeacherFromData.getSurname());
+            if (newTeacher.getAge() == null)
+                newTeacher.setAge(existTeacherFromData.getAge());
+            if (newTeacher.getSalary() == null)
+                newTeacher.setSalary(existTeacherFromData.getSalary());
+            //TODO
+            if (newTeacher.getGroups() == null || newTeacher.getGroups().isEmpty())
+                newTeacher.setGroups(newTeacher.getGroups());
+            if (newTeacher.getStudents() == null || newTeacher.getStudents().isEmpty())
+                newTeacher.setStudents(newTeacher.getStudents());
+            if (newTeacher.getSubjects() == null || newTeacher.getSubjects().isEmpty())
+                newTeacher.setSubjects(new);
+
+        }
+
+        if (!isEmpty(newTeacher)) {
+            teacherRepository.updateTeacher(teacherId, newTeacher);
+        }
+    }
+
+    private boolean isEmpty(Teacher newTeacher) {
+        return newTeacher.getName() == null &&
+                newTeacher.getSurname() == null &&
+                newTeacher.getAge() == null &&
+                newTeacher.getSalary() == null &&
+                newTeacher.getGroups() == null &&
+                newTeacher.getSubjects() == null &&
+                newTeacher.getStudents() == null;
     }
 
     public void deleteTeacher(Integer teacherId) {

@@ -49,7 +49,7 @@ public class TeacherRepository extends AbstractDao implements TeacherRepositoryI
         try (Connection connection = connection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "INSERT INTO student_management.teachers (name, surname, age, salary) " +
-                     "VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+                             "VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, teacher.getName());
             preparedStatement.setString(2, teacher.getSurname());
             preparedStatement.setInt(3, teacher.getAge());
@@ -61,9 +61,21 @@ public class TeacherRepository extends AbstractDao implements TeacherRepositoryI
         }
     }
 
-    public void updateTeacher(int id, Teacher teacher) {
-        teacherList.stream().filter(teacherFromList -> teacherFromList.getId() == teacher.getId())
-                .forEach(teacherFromList -> teacherList.set(teacherList.indexOf(teacherFromList), teacher));
+    public Teacher updateTeacher(int id, Teacher teacher) {
+        try (Connection connection = connection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE student_management.teachers " +
+                     "SET name=?, surname=?, age=?, salary=? WHERE id=?")) {
+
+            preparedStatement.setString(1, teacher.getName());
+            preparedStatement.setString(2, teacher.getSurname());
+            preparedStatement.setInt(3, teacher.getAge());
+            preparedStatement.setInt(4, teacher.getSalary());
+
+            preparedStatement.execute();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteTeacher(int id) {
