@@ -1,14 +1,17 @@
 package com.div.schoolmanagement.repository.inter;
 
+import com.div.schoolmanagement.entity.Group;
 import com.div.schoolmanagement.entity.Teacher;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TeacherRepositoryInter {
-    Optional<Teacher> getTeacherWithId(int id);
+    Optional<Teacher> getTeacherById(Integer teacherId);
     List<Teacher> getAllTeachers();
     void createTeacher(Teacher teacher);
-    Teacher updateTeacher(int id, Teacher teacher);
-    void deleteTeacher(int id);
+    void updateTeacher(Integer teacherId, Teacher teacher);
+    void deleteTeacher(Integer teacherId);
+
+    void updateGroupsForTeacher(Integer teacherId, List<Group> groups);
 }

@@ -27,7 +27,7 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public Teacher getTeacherWithId(@PathVariable("id") Integer teacherId) {
+    public Teacher getTeacherWithId(@PathVariable("id") String teacherId) {
         return teacherService.getTeacherById(teacherId);
     }
 
@@ -37,12 +37,12 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public void updateTeacher(@PathVariable("id") Integer teacherId, @RequestBody Teacher newTeacher) {
+    public void updateTeacher(@PathVariable("id") String teacherId, @RequestBody Teacher newTeacher) {
         teacherService.updateTeacher(teacherId, newTeacher);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTeacher(@PathVariable("id") Integer teacherId) {
+    public void deleteTeacher(@PathVariable("id") String teacherId) {
         teacherService.deleteTeacher(teacherId);
     }
 

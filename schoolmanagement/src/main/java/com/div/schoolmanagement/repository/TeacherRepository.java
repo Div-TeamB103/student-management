@@ -1,5 +1,6 @@
 package com.div.schoolmanagement.repository;
 
+import com.div.schoolmanagement.entity.Group;
 import com.div.schoolmanagement.entity.Teacher;
 import com.div.schoolmanagement.repository.inter.AbstractDao;
 import com.div.schoolmanagement.repository.inter.TeacherRepositoryInter;
@@ -12,22 +13,6 @@ import java.util.Optional;
 
 @Repository
 public class TeacherRepository extends AbstractDao implements TeacherRepositoryInter {
-
-    public Optional<Teacher> getTeacherWithId(int id) {
-        ResultSet resultSet;
-        Optional<Teacher> teacher = null;
-        try (Connection connection = connection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM student_management.teachers WHERE id=?")) {
-            preparedStatement.setInt(1, id);
-            resultSet = preparedStatement.getResultSet();
-            while (resultSet.next()) {
-                teacher = Optional.of(getTeacherFromResultSet(resultSet));
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return teacher;
-    }
 
     public List<Teacher> getAllTeachers() {
         ResultSet rs;
@@ -43,6 +28,22 @@ public class TeacherRepository extends AbstractDao implements TeacherRepositoryI
             throw new RuntimeException(e);
         }
         return teachers;
+    }
+
+    public Optional<Teacher> getTeacherById(Integer teacherId) {
+        ResultSet resultSet;
+        Optional<Teacher> teacher = null;
+        try (Connection connection = connection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM student_management.teachers WHERE id=?")) {
+            preparedStatement.setInt(1, teacherId);
+            resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                teacher = Optional.of(getTeacherFromResultSet(resultSet));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return teacher;
     }
 
     public void createTeacher(Teacher teacher) {
@@ -61,9 +62,10 @@ public class TeacherRepository extends AbstractDao implements TeacherRepositoryI
         }
     }
 
-    public Teacher updateTeacher(int id, Teacher teacher) {
+    public void updateTeacher(Integer teacherId, Teacher teacher) {
         try (Connection connection = connection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE student_management.teachers " +
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement("UPDATE student_management.teachers " +
                      "SET name=?, surname=?, age=?, salary=? WHERE id=?")) {
 
             preparedStatement.setString(1, teacher.getName());
@@ -78,8 +80,26 @@ public class TeacherRepository extends AbstractDao implements TeacherRepositoryI
         }
     }
 
-    public void deleteTeacher(int id) {
-        teacherList.removeIf(teacherById -> teacherById.getId() == id);
+    public void deleteTeacher(Integer teacherId) {
+        try (Connection connection = connection();
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement("DELETE FROM student_management.teachers WHERE id=?")) {
+            preparedStatement.setInt(1, teacherId);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    //TODO I need creating a table with name "groups" and "subjects"
+    @Override
+    public void updateGroupsForTeacher(Integer teacherId, List<Group> groups) {
+        try (Connection connection = connection();
+             connection.prepareStatement("UPDATE student_management.groups_teachers " +
+                     "SET group_id=?, teacher_id=?")) {
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Teacher getTeacherFromResultSet(ResultSet resultSet) throws SQLException {
@@ -92,5 +112,6 @@ public class TeacherRepository extends AbstractDao implements TeacherRepositoryI
 
         return teacher;
     }
+
 
 }

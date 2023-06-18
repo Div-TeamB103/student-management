@@ -8,11 +8,11 @@ public interface TeacherServiceInter {
 
     List<Teacher> getAllTeachers();
 
-    Teacher getTeacherById(Integer id);
+    Teacher getTeacherById(String id);
 
     void createTeacher(Teacher teacher);
 
-    void updateTeacher(Integer id, Teacher teacher);
+    void updateTeacher(String id, Teacher teacher);
 
-    void deleteTeacher(Integer id);
+    void deleteTeacher(String id);
 }
