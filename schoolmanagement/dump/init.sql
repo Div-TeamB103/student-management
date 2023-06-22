@@ -1,4 +1,7 @@
-#Queries for DDLCREATE DATABASE IF NOT EXISTS student_management;
+#Queries for DDL
+
+CREATE DATABASE IF NOT EXISTS student_management;
+
 CREATE TABLE IF NOT EXISTS students
 (
     id         INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -6,11 +9,10 @@ CREATE TABLE IF NOT EXISTS students
     surname    VARCHAR(50) NOT NULL,
     age        INT         NOT NULL,
     class_name VARCHAR(50)
-)
-    ENGINE = INNODB
-    CHARACTER
-        SET utf8
-    COLLATE utf8_general_ci;
+);
+
+drop table students cascade;
+
 CREATE TABLE IF NOT EXISTS teachers
 (
     id      INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -42,12 +44,12 @@ CREATE TABLE IF NOT EXISTS groups_teachers
 )
 #Queries for inserting
 INSERT INTO teachers (name, surname, age, salary)
-VALUES ('NadirTeacher', 'Nadirli', 32, 1500)
+VALUES ('üüüÜÜÜ əəəƏƏƏ ğğğĞĞĞ öööÖÖÖ ıııIII iiiİİİ', 'Nadirli', 32, 1500)
      , ('ElnurTeacher', 'Memmedov', 28, 2000)
      , ('ZakirTeacher', 'Eliyev', 62, 3200)
      , ('TahirTeacher', 'Qasimov', 54, 600);
 INSERT INTO students (name, surname, age, class_name)
-VALUES ('NadirStudent', 'Nadirli', 32, 'AAAAA'),
+VALUES ('üüüÜÜÜ əəəƏƏƏ ğğğĞĞĞ öööÖÖÖ ıııIII iiiİİİ', 'Nadirli', 32, 'AAAAA'),
        ('ElnurStudent', 'Memmedov', 28, 'ONNNO'),
        ('ZakirStudent', 'Eliyev', 62, 'PPPAA'),
        ('TahirStudent', 'Qasimov', 54, 'QQQW'),
@@ -80,3 +82,5 @@ FROM teachers t
          JOIN students_teachers st ON t.id = st.teacher_id
          LEFT JOIN students s on s.id = st.student_id
 ORDER BY salary;
+
+select * from students;
