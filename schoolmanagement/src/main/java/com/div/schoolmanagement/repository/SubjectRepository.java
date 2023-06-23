@@ -9,13 +9,15 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class SubjectRepository  {
+public class SubjectRepository {
 
     private final JdbcTemplate template;
 
@@ -33,7 +35,7 @@ public class SubjectRepository  {
     }
 
     public List<Subject> readAllSubject() {
-        return template.query("select*from subject", new RowMapper<Subject>() {
+        return template.query("select id, subject_name from subject ORDER BY id", new RowMapper<Subject>() {
             @Override
             public Subject mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Subject
@@ -43,9 +45,10 @@ public class SubjectRepository  {
     }
 
     public void updateSubjectGetById(int id, Subject subject) {
-        String sql = "update subject set subjectName=?" +
-                "where id=?";
+        String sql = "update subject set subject_name=? where id=?" ;
+
         PreparedStatementCallback<? extends Object> callback = ps -> {
+
             ps.setString(1, subject.getSubjectName());
             ps.setInt(2, id);
             ps.execute();
@@ -66,7 +69,18 @@ public class SubjectRepository  {
     }
 
     public Subject subjectGetById(int id) {
-        return template.query("select *from subject where id=?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Subject.class)).stream().findFirst().orElse(null);
-    }
+        String sql = "select id, subject_name from subject where id=?";
+
+        return     template.query(sql , this::rowMapper, id).get(0);
+
+
+        }
+ private Subject rowMapper(ResultSet rs , int rowNum) throws SQLException{
+     Subject subject = new Subject(rs.getInt(1) , rs.getString(2));
+
+     return subject ;
+
+
+ }
+
 }
