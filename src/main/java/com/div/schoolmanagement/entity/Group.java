@@ -14,9 +14,4 @@ public class Group {
     private String groupName;
     private List<Student> students ;
 
-
-
-
-
-
 }

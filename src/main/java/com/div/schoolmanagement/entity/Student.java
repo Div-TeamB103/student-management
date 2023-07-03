@@ -10,16 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-@Component
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student   {
 
+    private int id ;
     private String name ;
     private String surname ;
-
     private int age ;
-    private int id ;
     private String className;
 
 }
